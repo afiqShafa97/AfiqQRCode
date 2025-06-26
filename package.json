@@ -1,17 +1,25 @@
 {
-  "dependencies": {
-    "fs": "^0.0.1-security",
-    "inquirer": "^9.3.7",
-    "qr-image": "^3.2.0"
-  },
-  "name": "2.4-qr-code-project",
+  "name": "0.2-afiq-qr-generator",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afiqShafa97/AfiqQRCode.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/afiqShafa97/AfiqQRCode/issues"
+  },
+  "homepage": "https://github.com/afiqShafa97/AfiqQRCode#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
