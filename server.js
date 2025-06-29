@@ -1,26 +1,31 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { imageSync } from "qr-image";
+import { writeFileSync } from "fs";
+import { writeFile } from "fs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Needed to work with __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware to serve static files (HTML/JS)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Middleware to parse JSON body
 app.use(express.json());
 
 // POST route to receive input
 app.post('/submit', (req, res) => {
-  const userInput = req.body.input;
-  console.log('Received from frontend:', userInput);
-  res.json({ message: 'Data received!', yourInput: userInput });
+  const { tautan } = req.body;
+  console.log('Received tautan:', tautan);
+  res.json({ message: 'Tautan diterima', tautan });
+  generateQRandText(tautan);
 });
+
+function generateQRandText(textInput) {
+  const qr_now = imageSync(textInput, { type: "png" });
+  writeFileSync("generatedQR.png", qr_now);
+}
 
 // Start server
 app.listen(PORT, () => {

@@ -1,21 +1,26 @@
 alert("working");
-// import { imageSync } from "qr-image";
-// import { writeFileSync } from "fs";
-// import { writeFile } from "fs";
 
-// function generateQRandText(textInput) {
-//   writeFile("generatedText.txt", textInput, (err) => {
-//     if (err) throw err;
-//     console.log("The file has been saved!");
-//   });
-//   const qr_now = imageSync(textInput, { type: "png" });
-//   writeFileSync("generatedQR.png", qr_now);
-// }
 
-// document.getElementById("kirimBtn").addEventListener("click", () => {
-//   const nilaiTautan = document.getElementById("tautanQR").value;
-//   alert("Input value:", nilaiTautan);
-// });
+
+document.getElementById("kirimBtn").addEventListener("click", async () => {
+  const tautan = document.getElementById("tautanQR").value;
+  
+  try {
+    const response = await fetch("/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tautan }),
+    });
+
+    const result = await response.json();
+    console.log("Server response:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});
+
 
 // import inquirer from "inquirer";
 

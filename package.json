@@ -20,6 +20,7 @@
   "homepage": "https://github.com/afiqShafa97/AfiqQRCode#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "qr-image": "^3.2.0"
   }
 }
