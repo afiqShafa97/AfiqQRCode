@@ -2,8 +2,6 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { imageSync } from "qr-image";
-import { writeFileSync } from "fs";
-import { writeFile } from "fs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,14 +16,12 @@ app.use(express.json());
 app.post('/submit', (req, res) => {
   const { tautan } = req.body;
   console.log('Received tautan:', tautan);
-  res.json({ message: 'Tautan diterima', tautan });
-  generateQRandText(tautan);
+  const qr_png = imageSync(tautan, { type: 'png' });
+  res.setHeader('Content-Type', 'image/png');
+  res.setHeader('Content-Disposition', 'attachment; filename="qr.png"');
+  res.send(qr_png);
 });
 
-function generateQRandText(textInput) {
-  const qr_now = imageSync(textInput, { type: "png" });
-  writeFileSync("generatedQR.png", qr_now);
-}
 
 // Start server
 app.listen(PORT, () => {

@@ -1,10 +1,14 @@
-alert("working");
-
-
+//alert("working");
 
 document.getElementById("kirimBtn").addEventListener("click", async () => {
   const tautan = document.getElementById("tautanQR").value;
-  
+  const namaFile = document.getElementById("namaFileQR").value + ".png" || "afiqQRCode.png";
+
+  if (!tautan) {
+    alert("Silakan isi kotak teks tautan sebelum mengirim.");
+    return;
+  }
+
   try {
     const response = await fetch("/submit", {
       method: "POST",
@@ -14,13 +18,18 @@ document.getElementById("kirimBtn").addEventListener("click", async () => {
       body: JSON.stringify({ tautan }),
     });
 
-    const result = await response.json();
-    console.log("Server response:", result);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = namaFile;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   } catch (error) {
     console.error("Error:", error);
   }
 });
-
 
 // import inquirer from "inquirer";
 
