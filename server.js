@@ -17,9 +17,8 @@ app.post('/submit', (req, res) => {
   const { tautan } = req.body;
   console.log('Received tautan:', tautan);
   const qr_png = imageSync(tautan, { type: 'png' });
-  res.setHeader('Content-Type', 'image/png');
-  res.setHeader('Content-Disposition', 'attachment; filename="qr.png"');
-  res.send(qr_png);
+  const base64 = Buffer.from(qr_png).toString('base64');
+  res.json({ base64 });
 });
 
 
